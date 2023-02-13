@@ -1,0 +1,63 @@
+version: '3.7'
+services:
+  cartlow-catalog-service:
+    container_name: catalog-container
+    hostname: catalog-container
+    image: muhammadusama7/apachephp74mariadbssh:v1.2
+#    extra_hosts:
+#      - "somehost:162.242.195.82"
+#      - "otherhost:50.31.209.229"
+    ports:
+      - '223:22'
+      - '83:80'
+      - '3303:3306'
+    volumes:
+      - apache2_home:/etc/apache2
+      - apache2_project:/var/www/html
+      - mariadb_home:/root
+      - mariadb_data:/var/lib/mysql
+      - mariadb_conf:/etc/mysql
+      - mariadb_logs:/var/log/mysql
+    environment:
+      - ROOT_PASSWORD=C@rtlow@123
+      - MYSQL_ROOT_PASSWORD=C@rtlow@123
+      - MYSQL_DATABASE=cartlowDB
+      - MYSQL_USER=user1
+      - MYSQL_PASSWORD=user1
+volumes:
+  apache2_home:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/apache2
+      o: bind
+  apache2_project:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/project
+      o: bind
+  mariadb_home:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/mariadb/home
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/mariadb/data
+      o: bind
+  mariadb_conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/mariadb/conf
+      o: bind
+  mariadb_logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cartlow/docker_env/catalog/mariadb/logs
+      o: bind
